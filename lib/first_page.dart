@@ -1,49 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:widget_sample/second_page.dart';
 
 class FirstPage extends StatelessWidget {
-  String nameText = '';
+  final List<String> entries = <String>['A', 'B', 'C', 'D', 'E'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ファースト'),
+        title: const Text('リスト'),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // const Image(
-              //   image: NetworkImage(
-              //     'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-              //   ),
-              // ),
-              Image.network(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'
+      body: ListView.separated(
+        itemCount: entries.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Center(
+            child: Container(
+              color: Colors.yellow,
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Entry ${entries[index]}',
+                style: TextStyle(fontSize: 30),
               ),
-              TextField(
-                onChanged: (text) {
-                  nameText = text;
-                },
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    // ボタンを押下した時に呼ばれる処理を書く
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SecondPage(nameText),
-                      ),
-                    );
-                  },
-                  child: const Text('次の画面へ')
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(color: Colors.black,),
       ),
     );
   }
